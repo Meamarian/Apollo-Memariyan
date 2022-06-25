@@ -1,0 +1,46 @@
+[
+    {
+        "functionType": "Addition",
+        "resources": [
+            {
+                "type": "Serverless",
+                "properties": {
+                    "Uri": "https://eu-de.functions.cloud.ibm.com/api/v1/web/889865ce-e2d5-4caa-90a7-b4e2a8952dfc/default/Addition.json"
+                }
+            }
+        ]
+    },
+    {
+        "functionType": "Search",
+        "resources": [
+            {
+                "type": "Serverless",
+                "properties": {
+                    "Uri": "https://eu-de.functions.cloud.ibm.com/api/v1/web/889865ce-e2d5-4caa-90a7-b4e2a8952dfc/default/Search.json"
+                }
+            }
+        ]
+    },
+    {
+        "functionType": "Split",
+        "resources": [
+            {
+                "type": "Serverless",
+                "properties": {
+                    "Uri": "https://eu-de.functions.cloud.ibm.com/api/v1/web/889865ce-e2d5-4caa-90a7-b4e2a8952dfc/default/Split.json"
+                }
+            }
+        ]
+    },
+    {
+        "functionType": "TextModify",
+        "resources": [
+            {
+                "type": "Serverless",
+                "properties": {
+                    "Uri": "https://eu-de.functions.cloud.ibm.com/api/v1/web/889865ce-e2d5-4caa-90a7-b4e2a8952dfc/default/TextModify.json"
+                }
+            }
+        ]
+    }
+]

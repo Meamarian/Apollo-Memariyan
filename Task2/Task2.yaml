@@ -1,0 +1,98 @@
+---
+name: "Task2"
+dataIns:
+- name: "Text"
+  type: "string"
+  source: "Text"
+- name: "Pattern"
+  type: "string"
+  source: "Pattern"
+- name: "W"
+  type: "number"
+  source: "W"
+- name: "M"
+  type: "number"
+  source: "M"
+workflowBody:
+- function:
+    name: "Split"
+    type: "Split"
+    dataIns:
+    - name: "TextStr"
+      type: "string"
+      source: "Task2/Text"
+    - name: "Wnum"
+      type: "number"
+      source: "Task2/W"
+    dataOuts:
+    - name: "BatchArr"
+      type: "collection"
+- parallelFor:
+    name: "ForEachSearch"
+    dataIns:
+    - name: "iterator"
+      type: "collection"
+      source: "Split/BatchArr"
+    iterators: ["iterator"]
+    loopBody:
+    - function:
+        name: "Search"
+        type: "Search"
+        dataIns:
+        - name: "TextBatch"
+          type: "collection"
+          source: "ForEachSearch/iterator"
+        - name: "Pattern"
+          type: "string"
+          source: "Task2/Pattern"
+        dataOuts:
+        - name: "BatchOccurence"
+          type: "number"
+    dataOuts:
+    - name: "BatchOccurenceArr"
+      type: "collection"
+      source: "Search/BatchOccurence"
+- function:
+    name: "Addition"
+    type: "Addition"
+    dataIns:
+    - name: "BatchOccurenceArr"
+      type: "collection"
+      source: "ForEachSearch/BatchOccurenceArr"
+    dataOuts:
+    - name: "TotalOccurence"
+      type: "number"
+- if:
+    name: "IfTextModify"    
+    condition:
+    - data1: "Addition/TotalOccurence"
+      data2: "Task2/M"
+      type: "number"
+      operator: ">"
+      negation: "false"
+      combinedWith: "and"
+    then:
+    - function:
+        name: "TextModify"
+        type: "TextModify"
+        dataIns:
+        - name: "OriginTextStr"
+          type: "string"
+          source: "Task2/Text"
+        - name: "Mnum"
+          type: "number"
+          source: "Task2/M"
+        dataOuts:
+        - name: "ModifiedTextStr"
+          type: "string"
+    dataOuts:
+    - name: "DefaultText"
+      type: "string"
+      source: "TextModify/ModifiedTextStr,Task2/M"
+dataOuts:
+- name: "TotalOccurence"
+  type: "number"
+  source: "Addition/TotalOccurence"
+- name: "ModifiedText"
+  type: "string"
+  source: "IfTextModify/DefaultText"

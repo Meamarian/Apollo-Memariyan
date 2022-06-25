@@ -1,0 +1,9 @@
+Apply complete! Resources: 1 added, 3 changed, 0 destroyed.
+
+Outputs:
+
+url_Addition = "https://eu-de.functions.cloud.ibm.com/api/v1/web/889865ce-e2d5-4caa-90a7-b4e2a8952dfc/default/Addition.json"
+url_Search = "https://eu-de.functions.cloud.ibm.com/api/v1/web/889865ce-e2d5-4caa-90a7-b4e2a8952dfc/default/Search.json"
+url_Split = "https://eu-de.functions.cloud.ibm.com/api/v1/web/889865ce-e2d5-4caa-90a7-b4e2a8952dfc/default/Split.json"
+url_TextModify = "https://eu-de.functions.cloud.ibm.com/api/v1/web/889865ce-e2d5-4caa-90a7-b4e2a8952dfc/default/TextModify.json"
+

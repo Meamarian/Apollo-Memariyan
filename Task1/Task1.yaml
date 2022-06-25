@@ -1,0 +1,66 @@
+---
+name: "Task1"
+dataIns:
+- name: "Text"
+  type: "string"
+  source: "text"
+- name: "Pattern"
+  type: "string"
+  source: "pattern"
+- name: "W"
+  type: "number"
+  source: "w"
+workflowBody:
+- function:
+    name: "Split"
+    type: "Split"
+    dataIns:
+    - name: "TextStr"
+      type: "string"
+      source: "Task1/Text"
+    - name: "Wnum"
+      type: "number"
+      source: "Task1/W"
+    dataOuts:
+    - name: "BatchArr"
+      type: "collection"
+- parallelFor:
+    name: "forEachSearch"
+    dataIns:
+    - name: "iterator"
+      type: "collection"
+      source: "Split/BatchArr"
+    iterators: ["iterator"]
+    loopBody:
+    - function:
+        name: "Search"
+        type: "Search"
+        dataIns:
+        - name: "TextBatch"
+          type: "collection"
+          source: "forEachSearch/iterator"
+        - name: "Pattern"
+          type: "string"
+          source: "Task1/Pattern"
+        dataOuts:
+        - name: "BatchOccurence"
+          type: "number"
+    dataOuts:
+    - name: "BatchOccurenceArr"
+      type: "collection"
+      source: "Search/BatchOccurence"
+- function:
+    name: "Addition"
+    type: "Addition"
+    dataIns:
+    - name: "BatchOccurenceArr"
+      type: "collection"
+      source: "forEachSearch/BatchOccurenceArr"
+    dataOuts:
+    - name: "TotalOccurence"
+      type: "number"
+dataOuts:
+- name: "TotalOccurence"
+  type: "number"
+  source: "Addition/TotalOccurence"
+
